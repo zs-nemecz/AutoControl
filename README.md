@@ -21,25 +21,25 @@ Implementation plan:
 
 2nd Stage
 * Vehicle settings
-⋅⋅* Ignition Switch
-⋅⋅* Steering Angle Slider
-⋅⋅* Speed Slider
-⋅⋅* Gear Buttons
-⋅⋅* Direction Signal Toggle Button
+⋅⋅⋅* Ignition Switch
+⋅⋅⋅* Steering Angle Slider
+⋅⋅⋅* Speed Slider
+⋅⋅⋅* Gear Buttons
+⋅⋅⋅* Direction Signal Toggle Button
 * Client-Server connection
-⋅⋅* Simple TCP connection
+⋅⋅⋅* Simple TCP connection
 * Client-Server communication
-⋅⋅* Send settings in independent TCP packages 
+⋅⋅⋅* Send settings in independent TCP packages 
 * Current vehicle state
-⋅⋅* Simple text based visualization of the requested settings
-⋅⋅* Direct relationship between requested setting and current state
+⋅⋅⋅* Simple text based visualization of the requested settings
+⋅⋅⋅* Direct relationship between requested setting and current state
 
 3rd Stage
 * Vehicle settings
 * Client-Server connection
-⋅⋅* Establish heartbeat signal
+⋅⋅⋅* Establish heartbeat signal
 * Client-Server communication
-⋅⋅* CRC implementation
+⋅⋅⋅* CRC implementation
 * Current vehicle state
-⋅⋅* Simulate Steering Rack Behavior
-⋅⋅* Lag between requested speed – current speed
+⋅⋅⋅* Simulate Steering Rack Behavior
+⋅⋅⋅* Lag between requested speed – current speed
