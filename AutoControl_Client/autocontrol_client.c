@@ -1,9 +1,8 @@
-#include <stdint.h>
 #include <gtk/gtk.h>
 
-uint8_t set_ignition (GtkWidget *widget, gpointer user_data)
+guint8 set_ignition (GtkWidget *widget, gpointer user_data)
 {
-    uint8_t ignition;
+    guint8 ignition;
     if (gtk_switch_get_active(widget) == TRUE)
     {
         ignition = 1;
@@ -16,6 +15,15 @@ uint8_t set_ignition (GtkWidget *widget, gpointer user_data)
     }
 
     return ignition;
+}
+
+gint16 get_angle (GtkWidget *widget, gpointer user_data)
+{
+    gint16 angle;
+    angle = gtk_range_get_value(widget);
+    g_print("Requested steering angle: %d\n", angle);
+
+    return angle;
 }
 
 int main (int   argc, char *argv[])
@@ -50,9 +58,8 @@ int main (int   argc, char *argv[])
     ignition_switch = gtk_builder_get_object (builder, "ignitionSwitch");
     g_signal_connect (ignition_switch, "notify::active", G_CALLBACK (set_ignition), NULL);
 
-    //angle_slider = gtk_builder_get_object (builder, "angleSlider");
-    angle_slider = gtk_scale_new_with_range(GTK_ORIENTATION_HORIZONTAL, 0, 300, 100);
-    //g_signal_connect (button, "clicked", G_CALLBACK (gtk_main_quit), NULL);
+    angle_slider = gtk_builder_get_object (builder, "angleSlider");
+    g_signal_connect (angle_slider, "value-changed", G_CALLBACK (get_angle), NULL);
 
     ignition_label = gtk_builder_get_object(builder, "ignitionLabel");
 
