@@ -24,9 +24,10 @@ int main (int   argc, char *argv[])
     GObject *window;
     GObject *ignition_switch;
     GObject *ignition_label;
-    GObject *button;
-/*     GObject *angle_slider;
- *     GObject *speed_slider;
+    GObject *angle_slider;
+    GtkAdjustment *scale_adjustment;
+
+ /*     GObject *speed_slider;
  *     GObject *gear_button;
  *     GObject *direction_toggle;
  */
@@ -49,8 +50,9 @@ int main (int   argc, char *argv[])
     ignition_switch = gtk_builder_get_object (builder, "ignitionSwitch");
     g_signal_connect (ignition_switch, "notify::active", G_CALLBACK (set_ignition), NULL);
 
-    button = gtk_builder_get_object (builder, "quitButton");
-    g_signal_connect (button, "clicked", G_CALLBACK (gtk_main_quit), NULL);
+    //angle_slider = gtk_builder_get_object (builder, "angleSlider");
+    angle_slider = gtk_scale_new_with_range(GTK_ORIENTATION_HORIZONTAL, 0, 300, 100);
+    //g_signal_connect (button, "clicked", G_CALLBACK (gtk_main_quit), NULL);
 
     ignition_label = gtk_builder_get_object(builder, "ignitionLabel");
 
