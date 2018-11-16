@@ -26,6 +26,15 @@ gint16 get_angle (GtkWidget *widget, gpointer user_data)
     return angle;
 }
 
+guint16 get_speed (GtkWidget *widget, gpointer user_data)
+{
+    guint16 speed;
+    speed = gtk_range_get_value(widget);
+    g_print("Requested speed: %d\n", speed);
+
+    return speed;
+}
+
 int main (int   argc, char *argv[])
 {
     GtkBuilder *builder;
@@ -33,6 +42,7 @@ int main (int   argc, char *argv[])
     GObject *ignition_switch;
     GObject *ignition_label;
     GObject *angle_slider;
+    GObject *speed_slider;
     GtkAdjustment *scale_adjustment;
 
  /*     GObject *speed_slider;
@@ -60,6 +70,9 @@ int main (int   argc, char *argv[])
 
     angle_slider = gtk_builder_get_object (builder, "angleSlider");
     g_signal_connect (angle_slider, "value-changed", G_CALLBACK (get_angle), NULL);
+
+    speed_slider = gtk_builder_get_object (builder, "speedSlider");
+    g_signal_connect (speed_slider, "value-changed", G_CALLBACK (get_speed), NULL);
 
     ignition_label = gtk_builder_get_object(builder, "ignitionLabel");
 

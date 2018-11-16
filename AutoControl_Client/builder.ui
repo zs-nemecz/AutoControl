@@ -1,7 +1,11 @@
 <interface>
-  <object id="adjustScale" class="GtkAdjustment">
-     <property name="lower">0</property>
+  <object id="adjustAngleScale" class="GtkAdjustment">
+     <property name="lower">-360</property>
      <property name="upper">360</property>
+  </object>
+  <object id="adjustSpeedScale" class="GtkAdjustment">
+     <property name="lower">0</property>
+     <property name="upper">180</property>
   </object>
   <object id="window" class="GtkWindow">
     <property name="visible">True</property>
@@ -39,11 +43,26 @@
             <property name="hexpand">True</property>
             <property name="vexpand">True</property>
             <property name="digits">0</property>
-            <property name="adjustment">adjustScale</property>
+            <property name="draw-value">False</property>
+            <property name="adjustment">adjustAngleScale</property>
           </object>
           <packing>
             <property name="left-attach">1</property>
             <property name="top-attach">1</property>
+          </packing>
+        </child>
+        <child>
+          <object id="speedSlider" class="GtkScale">
+            <property name="visible">True</property>
+            <property name="hexpand">True</property>
+            <property name="vexpand">True</property>
+            <property name="digits">0</property>
+            <property name="draw-value">False</property>
+            <property name="adjustment">adjustSpeedScale</property>
+          </object>
+          <packing>
+            <property name="left-attach">1</property>
+            <property name="top-attach">2</property>
           </packing>
         </child>
       </object>
