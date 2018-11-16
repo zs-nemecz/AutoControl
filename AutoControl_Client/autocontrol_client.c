@@ -40,7 +40,7 @@ int main (int   argc, char *argv[])
     GtkBuilder *builder;
     GObject *window;
     GObject *ignition_switch;
-    GObject *ignition_label;
+    GObject *label;
     GObject *angle_slider;
     GObject *speed_slider;
     GtkAdjustment *scale_adjustment;
@@ -74,7 +74,9 @@ int main (int   argc, char *argv[])
     speed_slider = gtk_builder_get_object (builder, "speedSlider");
     g_signal_connect (speed_slider, "value-changed", G_CALLBACK (get_speed), NULL);
 
-    ignition_label = gtk_builder_get_object(builder, "ignitionLabel");
+    label = gtk_builder_get_object(builder, "ignitionLabel");
+    label = gtk_builder_get_object(builder, "angleLabel");
+    label = gtk_builder_get_object(builder, "speedLabel");
 
     gtk_main ();
 
