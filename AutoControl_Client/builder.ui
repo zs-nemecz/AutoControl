@@ -93,6 +93,57 @@
             <property name="top-attach">2</property>
           </packing>
         </child>
+        <child>
+          <object id="gearP" class="GtkRadioButton">
+            <property name="visible">True</property>
+            <property name="label">P </property>
+            <property name="hexpand">True</property>
+            <property name="vexpand">True</property>
+          </object>
+          <packing>
+            <property name="left-attach">1</property>
+            <property name="top-attach">3</property>
+          </packing>
+        </child>
+        <child>
+          <object id="gearN" class="GtkRadioButton">
+            <property name="group">gearP</property>
+            <property name="visible">True</property>
+            <property name="label">N </property>
+            <property name="hexpand">True</property>
+            <property name="vexpand">True</property>
+          </object>
+          <packing>
+            <property name="left-attach">1</property>
+            <property name="top-attach">4</property>
+          </packing>
+        </child>
+        <child>
+          <object id="gearR" class="GtkRadioButton">
+            <property name="group">gearP</property>
+            <property name="visible">True</property>
+            <property name="label">R </property>
+            <property name="hexpand">True</property>
+            <property name="vexpand">True</property>
+          </object>
+          <packing>
+            <property name="left-attach">1</property>
+            <property name="top-attach">5</property>
+          </packing>
+        </child>
+        <child>
+          <object id="gearD" class="GtkRadioButton">
+            <property name="group">gearP</property>
+            <property name="visible">True</property>
+            <property name="label">D </property>
+            <property name="hexpand">True</property>
+            <property name="vexpand">True</property>
+          </object>
+          <packing>
+            <property name="left-attach">1</property>
+            <property name="top-attach">6</property>
+          </packing>
+        </child>
       </object>
       <packing>
       </packing>
