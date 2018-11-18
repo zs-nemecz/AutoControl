@@ -54,6 +54,21 @@
           </packing>
         </child>
         <child>
+          <object id="transmissionLabel" class="GtkLabel">
+            <property name="visible">True</property>
+          <property name="label">TRANSMISSION </property>
+            <property name="hexpand">True</property>
+            <property name="vexpand">True</property>
+            <property name="halign">GTK_ALIGN_START</property>
+            <property name="valign">GTK_ALIGN_CENTER</property>
+          </object>
+          <packing>
+            <property name="left-attach">0</property>
+            <property name="top-attach">3</property>
+            <property name="height">4</property>
+          </packing>
+        </child>
+        <child>
           <object id="ignitionSwitch" class="GtkSwitch">
             <property name="visible">True</property>
             <property name="hexpand">True</property>
