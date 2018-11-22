@@ -1,5 +1,12 @@
 #include <gtk/gtk.h>
 
+struct IndexButtons {
+    GtkWidget *ButtonLeft;
+    GtkWidget *ButtonRight;
+    guint8 *LeftActive;
+    guint8 *RightActive;
+};
+
 guint8 get_ignition (GtkWidget *widget, gpointer user_data)
 {
     guint8 ignition;
@@ -17,47 +24,82 @@ guint8 get_ignition (GtkWidget *widget, gpointer user_data)
     return ignition;
 }
 
+guint8 get_index (GtkWidget *widget, struct IndexButtons *button_stucture)
+{
+    GtkWidget *other_button;
+    guint8 *index_active;
+
+    if (button_stucture->ButtonLeft == widget)
+    {
+        other_button = button_stucture->ButtonRight;
+        g_print("Left button toggled, ");
+        index_active = button_stucture->LeftActive;
+    }
+    else if (button_stucture->ButtonRight == widget)
+    {
+        other_button = button_stucture->ButtonLeft;
+        g_print("Right button toggled, ");
+        index_active = button_stucture->RightActive;
+    }
+    else
+    {
+        g_print("Error: object unknown!\n");
+    }
+
+
+    if(gtk_toggle_button_get_active(widget) == TRUE)
+    {
+        *index_active = 1;
+        gtk_toggle_button_set_active(other_button, FALSE);
+    }
+    else if (gtk_toggle_button_get_active(widget) == FALSE)
+    {
+        *index_active = 0;
+    }
+
+    g_print("active: %d\n", *index_active);
+
+    return index_active;
+}
+
+
 guint8 get_transmission_mode (GtkWidget *widget, gpointer user_data)
 {
     guint8 t_mode;
-    if(user_data == 0)
+    if(gtk_toggle_button_get_active(widget) == TRUE)
     {
-        if(gtk_toggle_button_get_active(widget) == TRUE)
+        if(user_data == 0)
         {
             t_mode = 0;
             g_print("Parking\n");
         }
-    }
-    else if (user_data == 1)
-    {
-        if(gtk_toggle_button_get_active(widget) == TRUE)
+        else if (user_data == 1)
         {
             t_mode = 1;
             g_print("Neutral\n");
         }
-
-    }
-    else if (user_data == 2)
-    {
-        if(gtk_toggle_button_get_active(widget) == TRUE)
+        else if (user_data == 2)
         {
             t_mode = 2;
             g_print("Backwards\n");
         }
-    }
-    else if (user_data == 3)
-    {
-        if(gtk_toggle_button_get_active(widget) == TRUE)
+        else if (user_data == 3)
         {
             t_mode = 3;
             g_print("Drive\n");
+        }
+        else
+        {
+            t_mode = 4;
+            g_print("Transmission mode invalid.\n");
         }
     }
     else
     {
         t_mode = 4;
-        g_print("Transmission mode invalid.\n");
     }
+
+    g_print("t_mode: %d\n", t_mode);
 
     return t_mode;
 }
@@ -91,6 +133,15 @@ int main (int   argc, char *argv[])
     GtkWidget *gear_button_n;
     GtkWidget *gear_button_r;
     GtkWidget *gear_button_d;
+
+    GtkWidget *button_left;
+    GtkWidget *button_right;
+    guint left_index = 0;
+    guint right_index = 0;
+
+    struct IndexButtons index_buttons;
+    index_buttons.LeftActive = &left_index;
+    index_buttons.RightActive = &right_index;
 
     GError *error = NULL;
     gtk_init (&argc, &argv);
@@ -127,6 +178,12 @@ int main (int   argc, char *argv[])
     g_signal_connect (gear_button_r, "toggled", G_CALLBACK (get_transmission_mode), 2);
     g_signal_connect (gear_button_d, "toggled", G_CALLBACK (get_transmission_mode), 3);
 
+    button_left = gtk_builder_get_object(builder, "indexLeft");
+    button_right = gtk_builder_get_object(builder, "indexRight");
+    index_buttons.ButtonLeft = button_left;
+    index_buttons.ButtonRight = button_right;
+    g_signal_connect (button_left, "toggled", G_CALLBACK (get_index), &index_buttons);
+    g_signal_connect (button_right, "toggled", G_CALLBACK (get_index), &index_buttons);
 
     label = gtk_builder_get_object(builder, "ignitionLabel");
     label = gtk_builder_get_object(builder, "angleLabel");
