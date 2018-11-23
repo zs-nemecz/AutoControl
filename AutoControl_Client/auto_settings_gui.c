@@ -1,5 +1,6 @@
 #include "auto_settings_gui.h""
 
+/*TODO: fix return value*/
 guint8 get_ignition (GtkWidget *widget, gpointer user_data)
 {
     guint8 ignition;
@@ -22,16 +23,17 @@ guint8 get_index (GtkWidget *widget, struct IndexButtons *button_stucture)
     GtkWidget *other_button;
     guint8 *index_active;
 
+    /*Check which index button was pushed*/
     if (button_stucture->ButtonLeft == widget)
     {
         other_button = button_stucture->ButtonRight;
-        g_print("Left button toggled, ");
+        g_print("Left button toggled\n");
         index_active = button_stucture->LeftActive;
     }
     else if (button_stucture->ButtonRight == widget)
     {
         other_button = button_stucture->ButtonLeft;
-        g_print("Right button toggled, ");
+        g_print("Right button toggled.\n");
         index_active = button_stucture->RightActive;
     }
     else
@@ -39,23 +41,20 @@ guint8 get_index (GtkWidget *widget, struct IndexButtons *button_stucture)
         g_print("Error: object unknown!\n");
     }
 
-
     if(gtk_toggle_button_get_active(widget) == TRUE)
     {
         *index_active = 1;
-        gtk_toggle_button_set_active(other_button, FALSE);
+        gtk_toggle_button_set_active(other_button, FALSE); //deselect other button
     }
     else if (gtk_toggle_button_get_active(widget) == FALSE)
     {
         *index_active = 0;
     }
 
-    g_print("active: %d\n", *index_active);
-
     return *index_active;
 }
 
-
+/*TODO:  ide egy struktura kellene input argumentnek: minden radio button plusz egy uint transmission_mode*/
 guint8 get_transmission_mode (GtkWidget *widget, gpointer user_data)
 {
     guint8 t_mode;
@@ -97,6 +96,7 @@ guint8 get_transmission_mode (GtkWidget *widget, gpointer user_data)
     return t_mode;
 }
 
+/*TODO: fix return value use "user_data"*/
 gint16 get_angle (GtkWidget *widget, gpointer user_data)
 {
     gint16 angle;
@@ -106,6 +106,7 @@ gint16 get_angle (GtkWidget *widget, gpointer user_data)
     return angle;
 }
 
+/*TODO: fix return value - use "user_data"*/
 guint16 get_speed (GtkWidget *widget, gpointer user_data)
 {
     guint16 speed;
