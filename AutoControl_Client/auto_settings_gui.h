@@ -10,6 +10,8 @@ struct IndexButtons {
     guint8 *RightActive;
 };
 
+guint8 connect_signal_handlers();
+
 guint8 get_ignition (GtkWidget *widget, gpointer user_data);
 
 guint8 get_index (GtkWidget *widget, struct IndexButtons *button_stucture);
@@ -20,4 +22,4 @@ gint16 get_angle (GtkWidget *widget, gpointer user_data);
 
 guint16 get_speed (GtkWidget *widget, gpointer user_data);
 
-#endif
+#endif // AUTO_SETTING_GUI

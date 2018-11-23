@@ -1,4 +1,4 @@
-#include "auto_settings_gui.h""
+#include "auto_settings_gui.h"
 
 /*TODO: fix return value*/
 guint8 get_ignition (GtkWidget *widget, gpointer user_data)
