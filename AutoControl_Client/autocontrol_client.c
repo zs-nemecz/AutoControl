@@ -73,33 +73,8 @@ int main (int   argc, char *argv[])
     /* initialize glib */
     g_type_init ();
 
-    GError *socket_error = NULL;
-
-    /* create a new connection */
-    GSocketConnection *connection = NULL;
-    GSocketClient *client = g_socket_client_new();
-
-    /* connect to the host */
-    connection = g_socket_client_connect_to_host (client,
-                                               (gchar*)"localhost",
-                                                1500, /* your port goes here */
-                                                NULL,
-                                                &socket_error);
-    /* don't forget to check for errors */
-    if (socket_error != NULL)
-    {
-      g_error (socket_error->message);
-      error = 1;
-    }
-    else
-    {
-      g_print ("Connection successful!\n");
-    }
-    char message[] = "This is my personal message";
-    const char *messagep = &message;
-    send_message(socket_error, connection, messagep);
-
     gtk_main ();
+
 
     return 0;
 }

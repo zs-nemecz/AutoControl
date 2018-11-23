@@ -1,19 +1,31 @@
 #include "auto_settings_gui.h"
+#include "client_connect.h"
 
 /*TODO: fix return value*/
 guint8 get_ignition (GtkWidget *widget, gpointer user_data)
 {
+
+    char* messagep;
+    struct SocketConnection *socket_connect;
+
     guint8 ignition;
     if (gtk_switch_get_active(widget) == TRUE)
     {
         ignition = 1;
         g_print("IGNITION ON: %d\n", ignition);
+        char message[] = "Ignition on";
+        messagep = &message;
     }
     else
     {
         ignition = 0;
         g_print("IGNITION OFF: %d\n", ignition);
+        char message[] = "Ignition off";
+        messagep = &message;
     }
+
+    socket_connect = client_connect();
+    send_message(socket_connect->SocketError, socket_connect->Connection, messagep);
 
     return ignition;
 }
