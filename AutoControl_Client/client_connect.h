@@ -11,6 +11,8 @@ struct SocketConnection
     GSocketConnection *Connection;
 };
 
+extern struct SocketConnection *socket_connection;
+
 struct SocketConnection * client_connect();
 
 guint8 send_message(GError *socket_error, GSocketConnection *connection, const char* message);

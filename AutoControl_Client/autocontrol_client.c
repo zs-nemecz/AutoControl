@@ -17,12 +17,15 @@ int main (int   argc, char *argv[])
 
     GtkWidget *button_left;
     GtkWidget *button_right;
-    guint left_index = 0;
-    guint right_index = 0;
+
+    guint8 left_index = 0;
+    guint8 right_index = 0;
 
     struct IndexButtons index_buttons;
     index_buttons.LeftActive = &left_index;
     index_buttons.RightActive = &right_index;
+
+    GtkWidget *button_send;
 
     GError *error = NULL;
 
@@ -35,6 +38,9 @@ int main (int   argc, char *argv[])
       g_clear_error (&error);
       return 1;
     }
+
+    /* initialize glib */
+    g_type_init ();
 
     /* Connect signal handlers to the constructed widgets. */
     window = gtk_builder_get_object (builder, "window");
@@ -66,15 +72,14 @@ int main (int   argc, char *argv[])
     g_signal_connect (button_left, "toggled", G_CALLBACK (get_index), &index_buttons);
     g_signal_connect (button_right, "toggled", G_CALLBACK (get_index), &index_buttons);
 
+    button_send = gtk_builder_get_object(builder, "buttonSend");
+    g_signal_connect (button_send, "clicked", G_CALLBACK (connect_and_send), NULL);
+
     label = gtk_builder_get_object(builder, "ignitionLabel");
     label = gtk_builder_get_object(builder, "angleLabel");
     label = gtk_builder_get_object(builder, "speedLabel");
 
-    /* initialize glib */
-    g_type_init ();
-
     gtk_main ();
-
 
     return 0;
 }

@@ -6,28 +6,21 @@ guint8 get_ignition (GtkWidget *widget, gpointer user_data)
 {
 
     char* messagep;
-    struct SocketConnection *socket_connect;
+    char message[] = "Ignition on";
+    messagep = &message;
 
     guint8 ignition;
     if (gtk_switch_get_active(widget) == TRUE)
     {
         ignition = 1;
         g_print("IGNITION ON: %d\n", ignition);
-        char message[] = "Ignition on";
-        messagep = &message;
+
     }
     else
     {
         ignition = 0;
         g_print("IGNITION OFF: %d\n", ignition);
-        char message[] = "Ignition off";
-        messagep = &message;
     }
-
-    socket_connect = client_connect();
-    send_message(socket_connect->SocketError, socket_connect->Connection, messagep);
-
-    return ignition;
 }
 
 guint8 get_index (GtkWidget *widget, struct IndexButtons *button_stucture)
@@ -35,18 +28,26 @@ guint8 get_index (GtkWidget *widget, struct IndexButtons *button_stucture)
     GtkWidget *other_button;
     guint8 *index_active;
 
+    char* messagep;
+
     /*Check which index button was pushed*/
     if (button_stucture->ButtonLeft == widget)
     {
         other_button = button_stucture->ButtonRight;
         g_print("Left button toggled\n");
         index_active = button_stucture->LeftActive;
+
+        char message[] = "Left clicked";
+        messagep = &message;
     }
     else if (button_stucture->ButtonRight == widget)
     {
         other_button = button_stucture->ButtonLeft;
         g_print("Right button toggled.\n");
         index_active = button_stucture->RightActive;
+
+        char message[] = "Right clicked";
+        messagep = &message;
     }
     else
     {
@@ -126,4 +127,20 @@ guint16 get_speed (GtkWidget *widget, gpointer user_data)
     g_print("Requested speed: %d\n", speed);
 
     return speed;
+}
+
+guint8 connect_and_send (GtkWidget *widget, gpointer user_data)
+{
+    struct SocketConnection *socket_connection;
+
+    socket_connection = client_connect();
+    if (socket_connection != NULL)
+    {
+        send_message(socket_connection->SocketError, socket_connection->Connection, "Sending data");
+    }
+    else
+    {
+        g_print("did not find valid pointer");
+    }
+    return 0;
 }

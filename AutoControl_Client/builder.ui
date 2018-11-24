@@ -188,6 +188,19 @@
           <property name="width">2</property>
         </packing>
         </child>
+        <child>
+          <object id="buttonSend" class="GtkButton">
+            <property name="visible">True</property>
+            <property name="label">Send Settings</property>
+            <property name="hexpand">True</property>
+            <property name="vexpand">True</property>
+          </object>
+          <packing>
+            <property name="left-attach">1</property>
+            <property name="top-attach">8</property>
+            <property name="width">2</property>
+          </packing>
+        </child>
       </object>
       <packing>
       </packing>

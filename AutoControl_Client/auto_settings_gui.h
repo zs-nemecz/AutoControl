@@ -22,4 +22,6 @@ gint16 get_angle (GtkWidget *widget, gpointer user_data);
 
 guint16 get_speed (GtkWidget *widget, gpointer user_data);
 
+guint8 connect_and_send (GtkWidget *widget, gpointer user_data);
+
 #endif // AUTO_SETTING_GUI
