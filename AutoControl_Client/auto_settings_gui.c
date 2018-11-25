@@ -1,31 +1,33 @@
 #include "auto_settings_gui.h"
 #include "client_connect.h"
 
-/*TODO: fix return value*/
-guint8 get_ignition (GtkWidget *widget, gpointer user_data)
+guint8 get_ignition (GObject *switcher, GParamSpec *pspec, guint8 *user_data)
 {
-    guint8 ignition_on;
+    guint8 *ignition_on = user_data;
 
     guint8 ignition;
-    if (gtk_switch_get_active(widget) == TRUE)
+    if (gtk_switch_get_active(switcher) == TRUE)
     {
-        ignition_on = 1;
+        *ignition_on = 1;
 
     }
     else
     {
-        ignition_on = 0;
+        *ignition_on = 0;
     }
 
-    g_print("ignition: %d\n", ignition_on);
+    g_print("ignition address: %d\n", user_data);
+    g_print("ignition value: %d\n", *user_data);
 
-    return ignition_on;
+    return *ignition_on;
 }
 
 guint8 get_index (GtkWidget *widget, struct IndexButtons *button_stucture)
 {
     GtkWidget *other_button;
     guint8 *index_active;
+
+    g_print("index buttons address: %d\n", button_stucture);
 
     /*Check which index button was pushed*/
     if (button_stucture->ButtonLeft == widget)
@@ -61,46 +63,41 @@ guint8 get_index (GtkWidget *widget, struct IndexButtons *button_stucture)
     return *index_active;
 }
 
-/*TODO:  ide egy struktura kellene input argumentnek: minden radio button plusz egy uint transmission_mode*/
-guint8 get_transmission_mode (GtkWidget *widget, gpointer user_data)
+guint8 get_transmission_mode (GtkWidget *widget, struct TransmissionMode *t_mode)
 {
-    guint8 t_mode;
+    guint8 *current_mode;
+    current_mode = t_mode->CurrentMode;
     if(gtk_toggle_button_get_active(widget) == TRUE)
     {
-        if(user_data == 0)
+        if(t_mode->TModeP == widget)
         {
-            t_mode = 0;
+            *current_mode = 0;
             g_print("Parking\n");
         }
-        else if (user_data == 1)
+        else if (t_mode->TModeN == widget)
         {
-            t_mode = 1;
+            *current_mode = 1;
             g_print("Neutral\n");
         }
-        else if (user_data == 2)
+        else if (t_mode->TModeR == widget)
         {
-            t_mode = 2;
+            *current_mode = 2;
             g_print("Backwards\n");
         }
-        else if (user_data == 3)
+        else if (t_mode->TModeD == widget)
         {
-            t_mode = 3;
+            *current_mode = 3;
             g_print("Drive\n");
         }
         else
         {
-            t_mode = 255;
+            *current_mode = 255;
             g_print("Transmission mode invalid.\n");
         }
-    }
-    else
-    {
-        t_mode = 4;
+        g_print("transmisson mode: %d\n", *(t_mode->CurrentMode));
     }
 
-    g_print("t_mode: %d\n", t_mode);
-
-    return t_mode;
+    return *current_mode;
 }
 
 /*TODO: fix return value use "user_data"*/

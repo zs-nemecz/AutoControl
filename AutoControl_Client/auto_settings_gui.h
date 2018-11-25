@@ -8,15 +8,23 @@ struct IndexButtons {
     GtkWidget *ButtonRight;
     guint8 *LeftActive;
     guint8 *RightActive;
-};
+} Index;
+
+struct TransmissionMode {
+    GtkWidget *TModeP;
+    GtkWidget *TModeN;
+    GtkWidget *TModeR;
+    GtkWidget *TModeD;
+    guint8 *CurrentMode;
+} Transmission;
 
 guint8 connect_signal_handlers();
 
-guint8 get_ignition (GtkWidget *widget, gpointer user_data);
+guint8 get_ignition (GObject *switcher, GParamSpec *pspec, guint8 *user_data);
 
 guint8 get_index (GtkWidget *widget, struct IndexButtons *button_stucture);
 
-guint8 get_transmission_mode (GtkWidget *widget, gpointer user_data);
+guint8 get_transmission_mode (GtkWidget *widget, struct TransmissionMode *t_mode);
 
 gint16 get_angle (GtkWidget *widget, gpointer user_data);
 
