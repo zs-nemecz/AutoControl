@@ -24,6 +24,8 @@ int main (int   argc, char *argv[])
     guint8 right_index = 0;
     guint8 ignition = 0;
     guint8 transmission = 0;
+    gint16 steering_angle = 0;
+    guint16 speed = 0;
 
     /** Declare structures to be passed on to widget callbacks **/
     struct IndexButtons index_buttons;
@@ -54,10 +56,10 @@ int main (int   argc, char *argv[])
     g_signal_connect (GTK_SWITCH (ignition_switch), "notify::active", G_CALLBACK (get_ignition), &ignition);
 
     slider = gtk_builder_get_object (builder, "angleSlider");
-    g_signal_connect (slider, "value-changed", G_CALLBACK (get_angle), NULL);
+    g_signal_connect (slider, "value-changed", G_CALLBACK (get_angle), &steering_angle);
 
     slider = gtk_builder_get_object (builder, "speedSlider");
-    g_signal_connect (slider, "value-changed", G_CALLBACK (get_speed), NULL);
+    g_signal_connect (slider, "value-changed", G_CALLBACK (get_speed), &speed);
 
     gear_button_p = gtk_builder_get_object (builder, "gearP");
     gear_button_n = gtk_builder_get_object (builder, "gearN");

@@ -26,9 +26,9 @@ guint8 get_index (GtkWidget *widget, struct IndexButtons *button_stucture);
 
 guint8 get_transmission_mode (GtkWidget *widget, struct TransmissionMode *t_mode);
 
-gint16 get_angle (GtkWidget *widget, gpointer user_data);
+gint16 get_angle (GtkWidget *widget, gint16 *requested_angle);
 
-guint16 get_speed (GtkWidget *widget, gpointer user_data);
+guint16 get_speed (GtkWidget *widget, guint16 *requested_speed);
 
 guint8 connect_and_send (GtkWidget *widget, gpointer user_data);
 

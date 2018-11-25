@@ -100,24 +100,22 @@ guint8 get_transmission_mode (GtkWidget *widget, struct TransmissionMode *t_mode
     return *current_mode;
 }
 
-/*TODO: fix return value use "user_data"*/
-gint16 get_angle (GtkWidget *widget, gpointer user_data)
+gint16 get_angle (GtkWidget *widget, gint16 *requested_angle)
 {
-    gint16 angle;
-    angle = gtk_range_get_value(widget);
-    g_print("Requested steering angle: %d\n", angle);
+    gint16 *angle = requested_angle;
+    *angle = gtk_range_get_value(widget);
+    g_print("Requested steering angle: %d\n", *requested_angle);
 
     return angle;
 }
 
-/*TODO: fix return value - use "user_data"*/
-guint16 get_speed (GtkWidget *widget, gpointer user_data)
+guint16 get_speed (GtkWidget *widget, guint16 *requested_speed)
 {
-    guint16 speed;
-    speed = gtk_range_get_value(widget);
-    g_print("Requested speed: %d\n", speed);
+    guint16 *speed = requested_speed;
+    *speed = gtk_range_get_value(widget);
+    g_print("Requested speed: %d\n", *requested_speed);
 
-    return speed;
+    return *speed;
 }
 
 guint8 connect_and_send (GtkWidget *widget, gpointer user_data)
