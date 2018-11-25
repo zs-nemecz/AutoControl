@@ -4,31 +4,28 @@
 /*TODO: fix return value*/
 guint8 get_ignition (GtkWidget *widget, gpointer user_data)
 {
-
-    char* messagep;
-    char message[] = "Ignition on";
-    messagep = &message;
+    guint8 ignition_on;
 
     guint8 ignition;
     if (gtk_switch_get_active(widget) == TRUE)
     {
-        ignition = 1;
-        g_print("IGNITION ON: %d\n", ignition);
+        ignition_on = 1;
 
     }
     else
     {
-        ignition = 0;
-        g_print("IGNITION OFF: %d\n", ignition);
+        ignition_on = 0;
     }
+
+    g_print("ignition: %d\n", ignition_on);
+
+    return ignition_on;
 }
 
 guint8 get_index (GtkWidget *widget, struct IndexButtons *button_stucture)
 {
     GtkWidget *other_button;
     guint8 *index_active;
-
-    char* messagep;
 
     /*Check which index button was pushed*/
     if (button_stucture->ButtonLeft == widget)
@@ -37,17 +34,12 @@ guint8 get_index (GtkWidget *widget, struct IndexButtons *button_stucture)
         g_print("Left button toggled\n");
         index_active = button_stucture->LeftActive;
 
-        char message[] = "Left clicked";
-        messagep = &message;
     }
     else if (button_stucture->ButtonRight == widget)
     {
         other_button = button_stucture->ButtonLeft;
         g_print("Right button toggled.\n");
         index_active = button_stucture->RightActive;
-
-        char message[] = "Right clicked";
-        messagep = &message;
     }
     else
     {
@@ -58,6 +50,8 @@ guint8 get_index (GtkWidget *widget, struct IndexButtons *button_stucture)
     {
         *index_active = 1;
         gtk_toggle_button_set_active(other_button, FALSE); //deselect other button
+        g_print("Left Active: %d\n", *(button_stucture->LeftActive));
+        g_print("Right Active: %d\n", *(button_stucture->RightActive));
     }
     else if (gtk_toggle_button_get_active(widget) == FALSE)
     {
