@@ -15,6 +15,6 @@ extern struct SocketConnection *socket_connection;
 
 struct SocketConnection * client_connect();
 
-guint8 send_message(GError *socket_error, GSocketConnection *connection, const char* message);
+guint8 send_message(GError *socket_error, GSocketConnection *connection, gint *message);
 
 #endif // CLIENT_CONNECT

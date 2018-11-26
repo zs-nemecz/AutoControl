@@ -27,13 +27,21 @@ int main (int   argc, char *argv[])
     gint16 steering_angle = 0;
     guint16 speed = 0;
 
-    /** Declare structures to be passed on to widget callbacks **/
+    /** Declare structures for passing on to widget callbacks **/
     struct IndexButtons index_buttons;
-    struct TransmissionMode transmission_modes;
+    struct TransmissionModes transmission_modes;
+    struct RequestedSettings requested_settings;
 
     index_buttons.LeftActive = &left_index;
     index_buttons.RightActive = &right_index;
     transmission_modes.CurrentMode = &transmission;
+    /*put requested settings in a structure to be sent out */
+    requested_settings.DesiredAngle = &steering_angle;
+    requested_settings.DesiredSpeed = &speed;
+    requested_settings.IgnitionFlag = &ignition;
+    requested_settings.LeftIndex = &left_index;
+    requested_settings.RightIndex = &right_index;
+    requested_settings.TransmissionMode = &transmission;
 
     /** Init GTK+ **/
     GError *error = NULL;
@@ -83,7 +91,7 @@ int main (int   argc, char *argv[])
     g_signal_connect (button_right, "toggled", G_CALLBACK (get_index), &index_buttons);
 
     button_send = gtk_builder_get_object(builder, "buttonSend");
-    g_signal_connect (button_send, "clicked", G_CALLBACK (connect_and_send), NULL);
+    g_signal_connect (button_send, "clicked", G_CALLBACK (connect_and_send), &requested_settings);
 
     /** Initialize GLIB for TCP connection **/
     g_type_init ();

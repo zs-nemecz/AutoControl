@@ -63,7 +63,7 @@ guint8 get_index (GtkWidget *widget, struct IndexButtons *button_stucture)
     return *index_active;
 }
 
-guint8 get_transmission_mode (GtkWidget *widget, struct TransmissionMode *t_mode)
+guint8 get_transmission_mode (GtkWidget *widget, struct TransmissionModes *t_mode)
 {
     guint8 *current_mode;
     current_mode = t_mode->CurrentMode;
@@ -118,14 +118,29 @@ guint16 get_speed (GtkWidget *widget, guint16 *requested_speed)
     return *speed;
 }
 
-guint8 connect_and_send (GtkWidget *widget, gpointer user_data)
+void pack_values_to_send (struct RequestedSettings *data)
 {
+    gint ignition_to_send= ((gint)*(data->IgnitionFlag));
+    gint angle_to_send = ((gint)*(data->DesiredAngle));
+    g_print("angle in hex: %x", angle_to_send);
+    gint speed_to_send = ((gint)*(data->DesiredSpeed));
+    gint transmission_to_send = ((gint)*(data->TransmissionMode));
+    gint lindex_to_send = ((gint)*(data->LeftIndex));
+    gint rindex_to_send = ((gint)*(data->RightIndex));
+
+}
+
+guint8 connect_and_send (GtkWidget *widget, struct RequestedSettings *settings)
+{
+    pack_values_to_send(settings);
+
     struct SocketConnection *socket_connection;
 
     socket_connection = client_connect();
     if (socket_connection != NULL)
     {
-        send_message(socket_connection->SocketError, socket_connection->Connection, "Sending data");
+        gint number_to_send = ((gint)*(settings->IgnitionFlag));
+        send_message(socket_connection->SocketError, socket_connection->Connection, &number_to_send);
     }
     else
     {
