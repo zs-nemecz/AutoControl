@@ -118,21 +118,32 @@ guint16 get_speed (GtkWidget *widget, guint16 *requested_speed)
     return *speed;
 }
 
-void pack_values_to_send (struct RequestedSettings *data)
-{
-    gint ignition_to_send= ((gint)*(data->IgnitionFlag));
-    gint angle_to_send = ((gint)*(data->DesiredAngle));
-    g_print("angle in hex: %x", angle_to_send);
-    gint speed_to_send = ((gint)*(data->DesiredSpeed));
-    gint transmission_to_send = ((gint)*(data->TransmissionMode));
-    gint lindex_to_send = ((gint)*(data->LeftIndex));
-    gint rindex_to_send = ((gint)*(data->RightIndex));
-
-}
+/* gint * pack_values_to_send (struct RequestedSettings *data)
+ * {
+ *     gint ignition_to_send= ((gint)*(data->IgnitionFlag));
+ *     gint angle_to_send = ((gint)*(data->DesiredAngle));
+ *     gint speed_to_send = ((gint)*(data->DesiredSpeed));
+ *     gint transmission_to_send = ((gint)*(data->TransmissionMode));
+ *     gint lindex_to_send = ((gint)*(data->LeftIndex));
+ *     gint rindex_to_send = ((gint)*(data->RightIndex));
+ *
+ *     gint buffer[6] = {ignition_to_send, angle_to_send, speed_to_send, transmission_to_send, lindex_to_send, rindex_to_send};
+ *
+ *     return buffer;
+ * }
+ */
 
 guint8 connect_and_send (GtkWidget *widget, struct RequestedSettings *settings)
 {
-    pack_values_to_send(settings);
+
+    gint ignition_to_send= ((gint)*(settings->IgnitionFlag));
+    gint angle_to_send = ((gint)*(settings->DesiredAngle));
+    gint speed_to_send = ((gint)*(settings->DesiredSpeed));
+    gint transmission_to_send = ((gint)*(settings->TransmissionMode));
+    gint lindex_to_send = ((gint)*(settings->LeftIndex));
+    gint rindex_to_send = ((gint)*(settings->RightIndex));
+
+    gint buffer[6] = {ignition_to_send, angle_to_send, speed_to_send, transmission_to_send, lindex_to_send, rindex_to_send};
 
     struct SocketConnection *socket_connection;
 
@@ -140,7 +151,7 @@ guint8 connect_and_send (GtkWidget *widget, struct RequestedSettings *settings)
     if (socket_connection != NULL)
     {
         gint number_to_send = ((gint)*(settings->IgnitionFlag));
-        send_message(socket_connection->SocketError, socket_connection->Connection, &number_to_send);
+        send_message(socket_connection->SocketError, socket_connection->Connection, buffer, sizeof(buffer)/sizeof(buffer[0]));
     }
     else
     {

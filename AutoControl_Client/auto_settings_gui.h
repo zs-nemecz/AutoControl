@@ -40,7 +40,7 @@ gint16 get_angle (GtkWidget *widget, gint16 *requested_angle);
 
 guint16 get_speed (GtkWidget *widget, guint16 *requested_speed);
 
-void pack_values_to_send (struct RequestedSettings *settings);
+//gint * pack_values_to_send (struct RequestedSettings *data);
 
 guint8 connect_and_send (GtkWidget *widget, struct RequestedSettings *settings);
 
